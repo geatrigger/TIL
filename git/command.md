@@ -68,4 +68,58 @@ git의 현재 상태를 확인하는 명령어
   git status
   ```
 
-  
+
+### config
+
+git의 설정을 알 수 있는 명령어
+
+```shell
+git config --global --list # global로 저장된 config 보여줌
+git config --global user.name "name" # set name
+git config --gloabl user.email test@example.com # set email
+```
+
+### log
+
+git의 log 파악
+
+```shell
+git log --graph --oneline
+```
+
+### reset
+
+현재 커밋이후 변경사항이 있으면 삭제하는 명령어
+
+```shell
+git reset --hard # 바뀐 내용도 지움
+git reset # add한 것만 취소(바뀐 내용은 유지)
+git reset HEAD~1 # 가장 최근 commit 지움
+```
+
+### diff
+
+수정된 파일이 있는지 확인
+
+```shell
+git diff
+```
+
+### checkout
+
+브랜치 이동, 생성
+
+```shell
+git checkout develop
+git checkout -b develop # 새 브랜치 생성
+```
+
+### merge
+
+현재브랜치에서 다른 브랜치를 가져와 합침
+
+```shell
+git checkout develop
+git merge test # develop에 test를 merge함
+```
+
