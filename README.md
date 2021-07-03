@@ -71,7 +71,6 @@
   * 소수 판단 문제
     * 제곱근까지 루프
     * 에라토스테네스의 체
-
 * OS
 
   * 7 layers OSI model
@@ -133,11 +132,42 @@
     * 해결방법
   * Monitor synchronized in Java
   * Dining-Philosophers Problem
-
 * DB
-
+  * Database란
+  * file system대신 DBMS를 사용하게 된 이유
+  * superkey, candidate key, primary key, foreign key
+  * Schema Diagram 보는법(University Database)
+  * Relational Algebra
+    * Basic
+    * Additional
+  * Domain Types(MySQL, ...)
+  * Aggregate Function
+    * 뜻 : multiset of values of a coulmn of a relation에서 작동하여 값을 리턴
+    * 종류
+  * join
+  * Mapping Cardinalities
+    * one to one
+    * one to many
+    * many to one
+    * many to many
+  * E-R model design
+  * index
+    * dense, sparse
+    * primary, secondary
+    * multilevel index
+  * B+ tree
+  * Hashing for rile organization
+  * Hash index
+    * static hashing
+    * dynamic hashing
+  * Bitmap index
+  * 정규화
+  * Transaction
+  * 분산 데이터베이스
+  * 데이터웨어하우스
+  * OLAP
+  * Hadoop, NoSQL
 * 컴퓨터구조
-
+  * LRU cache
 * 네트워크
-
 * 확률 통계
