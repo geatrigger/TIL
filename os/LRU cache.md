@@ -39,6 +39,7 @@
   #include <vector>
   using namespace std;
   
+  // 참조 순서 : 1 2 3 1 4 5실행 후 cache : 5 4 1 3
   class LRUCache
   {
     list<int> dq;
@@ -95,8 +96,8 @@
   
     return 0;
   }
-  ```
-
+```
+  
   
 
 # 참고자료

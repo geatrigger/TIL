@@ -20,19 +20,21 @@
   
 
   ```python
-  array = [7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+  def count_sort(arr):
+      max_value = max(arr)
+      counts = [0 for x in range(max_value + 1)]
+      for val in arr:
+          counts[val] += 1
+      new_arr = []
+      for i, cnt in enumerate(counts):
+          for j in range(cnt):
+              new_arr.append(i)
+      return new_arr
   
-  max_value = max(array)
-  count_array = [0 for x in range(max_value + 1)]
-  
-  for val in array:
-      count_array[val] += 1
-  
-  for i in range(0, max_value + 1):
-      for j in range(count_array[i]):
-          print(i, end=' ')
+  arr = [7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+print(count_sort(arr))
   ```
-
+  
   ```c++
   #include <iostream>
   #include <chrono>
@@ -70,9 +72,9 @@
   		}
   	}
   	////
-  }
+}
   ```
-
+  
   ```java
   import java.util.*;
   
@@ -96,8 +98,8 @@
           }
       }
   
-  }
+}
   ```
-
+  
   
 
