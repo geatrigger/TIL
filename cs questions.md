@@ -107,6 +107,9 @@
 * 7 layers OSI model
   * 특징
   * 7계층 각각의 특징
+* Kernel mode and User mode
+  * 커널모드와 유저모드로 나누는 이유
+  * system call의 작동과정 설명
 
 # DB
 # 컴퓨터구조

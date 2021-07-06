@@ -80,7 +80,7 @@
   * Hypervisor(Xen, KVM, container)
   * Event handling mechanisms
     * Interrupt
-    * Trap
+    * Trap, Exception
   * I/O 처리 기법
     * Polling
     * Direct Memory Access
