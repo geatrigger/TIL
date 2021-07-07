@@ -91,7 +91,67 @@
   1 2 3 8 7 4 5 6 
   ```
 
-  
+* shortest path
+
+  * dijkstra algorithm이 어떻게 쓰이는지 말하고 구현
+
+    ```python
+    # 방향그래프
+    # 정점의 개수 V, 간선의 개수 E
+    # 시작정점 K
+    # u v w (u에서 v로 갈 때 가중치 w인 간선 존재)
+    # 입력
+    5 6
+    1
+    5 1 1
+    1 2 2
+    1 3 3
+    2 3 4
+    2 4 5
+    3 4 6
+    # i번째 줄에 i번째까지 가는데 드는 비용 출력
+    # 출력
+    0
+    2
+    3
+    7
+    INF
+    ```
+
+    
+
+  * floyd-warshall algorithm이 어떻게 쓰이는지 말하고 구현
+
+    ```python
+    # n : 도시의 개수
+    # m : 버스의 개수
+    # a, b, c : 시작도시, 도착도시, 비용
+    # 임력
+    5
+    14
+    1 2 2
+    1 3 3
+    1 4 1
+    1 5 10
+    2 4 2
+    3 4 1
+    3 5 1
+    4 5 3
+    3 5 10
+    3 1 8
+    1 4 2
+    5 1 7
+    3 4 2
+    5 2 4
+    # 출력
+    0 2 3 1 4
+    12 0 15 2 5
+    8 5 0 1 1
+    10 7 13 0 3
+    7 4 10 6 0
+    ```
+
+    
 
 # OS
 
@@ -110,6 +170,14 @@
 * Kernel mode and User mode
   * 커널모드와 유저모드로 나누는 이유
   * system call의 작동과정 설명
+* Hypervisor and Container
+  * 가상화의 특징
+  * Hypervisor와 Container의 차이점
+* Microkernel and Monolithickernel
+  * kernel의 역할
+  * Microkernel 와 Monolithickernel에서 커널, 주요 서비스의 실행방법
+  * Microkernel 와 Monolithickernel 장단점
+* Interrupt 와 Trap의 차이점
 
 # DB
 # 컴퓨터구조
