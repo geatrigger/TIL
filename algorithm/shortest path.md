@@ -181,3 +181,89 @@
 
   
 
+# Bellman-Ford algorithm
+
+* 음수 간선의 순환이 있을 때 최단 경로를 구하는 법
+
+* 기본 시간 복잡도는 O(VE)로 다익스트라보다 느리다
+
+  * 다익스트라에선 각 과정에서 연결된 간선만 확인하는데 벨만 포드에선 각 과정에서 전체 간선을 확인하기 때문에 느리다
+  * 벨만 포드 알고리즘은 다익스트라 알고리즘에서의 최적의 해를 항상 포함한다
+
+* V-1번 과정에서 모든 간선의 수 E를 확인하고, 해당 간선에서 a, b, c(출발, 도착, 비용)의 정보가 있으면 a까지 가는 비용 + c이 b까지 가는 비용보다 작으면 갱신(단, a까지 가는 방법을 찾은상태여야 한다 = 비용이 inf가 아님)
+
+* 마지막 N-1번째 시행(N번째 간선 확인)에서도 갱신이 일어난다면 음수 간선의 순환이 있다는 뜻이다
+
+* 소스코드
+
+  * https://www.acmicpc.net/problem/11657
+
+    ```python
+    # 입력
+    # N, M : 도시의 개수, 버스 노선의 개수
+    # A, B, C : 시작도시, 도착도시, 버스를 타고 이동하는데 걸리는 시간
+    # 1번 도시에서 다른 도시에 가는데 걸리는 시간 
+    # 어떤 도시에 가는데 시간을 무한히 오래 전으로 되돌릴 수 있으면 -1만 출력
+    # 그 외엔 걸리는시간을 도시 순서대로 출력, 해당 도시로 가는 경로가 없으면 -1 출력
+    # 1
+    3 4
+    1 2 4
+    1 3 3
+    2 3 -1
+    3 1 -2
+    #
+    4
+    3
+    # 2
+    3 4
+    1 2 4
+    1 3 3
+    2 3 -4
+    3 1 -2
+    #
+    -1
+    # 3
+    3 2
+    1 2 4
+    1 2 3
+    #
+    3
+    -1
+    ```
+
+    ```python
+    import sys
+    input = sys.stdin.readline
+    max_value = 100000000
+    
+    def bellmanford(edges, N, start):
+        distances = [max_value for x in range(N + 1)]
+        distances[start] = 0
+        for i in range(1, N+1):
+            for edge in edges:
+                A, B, C = edge
+                new_distance = distances[A] + C
+                if distances[A] != max_value and distances[B] > new_distance:
+                    distances[B] = new_distance
+                    if i == N:
+                        return -1
+    
+        return distances
+    
+    N, M = map(int, input().split())
+    edges = []
+    for i in range(M):
+        A, B, C = map(int, input().split())
+        edges.append((A, B, C))
+    distances = bellmanford(edges, N, 1)
+    if distances == -1:
+        print(-1)
+    else:
+        for i in range(2, N + 1):
+            if distances[i] == max_value:
+                print('-1')
+            else:
+                print(distances[i])
+    ```
+
+    
