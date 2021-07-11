@@ -194,7 +194,10 @@
     -1
     ```
   
-    
+
+----------------------------
+
+
 
 # OS
 
@@ -208,7 +211,7 @@
 ------------------------
 
 * 7 layers OSI model
-  * 특징
+  * layer모델의 특징
   * 7계층 각각의 특징
 * Kernel mode and User mode
   * 커널모드와 유저모드로 나누는 이유
@@ -221,6 +224,10 @@
   * Microkernel 와 Monolithickernel에서 커널, 주요 서비스의 실행방법
   * Microkernel 와 Monolithickernel 장단점
 * Interrupt 와 Trap의 차이점
+
+--------------------------------------
+
+
 
 # DB
 # 컴퓨터구조
