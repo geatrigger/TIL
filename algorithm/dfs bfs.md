@@ -88,16 +88,17 @@
   
   def bfs(graph, start):
       queue = deque([start])
-      visited = [0 for x in graph]
-      visited[start] = 1
+      visited = [0 for x in range(len(graph) + 1)]
       while queue:
           node = queue.popleft()
+          if visited[node]:
+              continue
+          visited[node] = 1
           print(node, end=' ')
           for child in graph[node]:
               if visited[child]:
                   continue
               queue.append(child)
-              visited[child] = 1 # 같은 값을 나중에 한 번 더 방문하지 않기 위해
   
   # 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
   graph = [
@@ -113,6 +114,6 @@
   ]
   
   bfs(graph, 1)
-  ```
-
+```
+  
   

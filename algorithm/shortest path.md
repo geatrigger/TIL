@@ -23,6 +23,8 @@
 
 * 코드
 
+  * https://www.acmicpc.net/problem/1753
+  
   ```python
   # 방향그래프
   # 정점의 개수 V, 간선의 개수 E
@@ -43,11 +45,11 @@
   2
   3
   7
-  INF
+INF
   ```
 
   
-
+  
   ```python
   import sys
   from heapq import heappush
@@ -56,23 +58,22 @@
   
   max_value = 100000000
   
-  def dijkstra(neighbors, start, V):
+  def dijkstra(graph, start, V):
       distances = [max_value for x in range(V + 1)]
-      node_h = [(0, start)]
+      node_h = []
+      heappush(node_h, (0, start))
       distances[start] = 0
       while node_h:
-          d, node = heappop(node_h)
-          # 이미 방문했던 노드는 스킵
-          if distances[node] < d:
+          distance, node = heappop(node_h)
+          if distances[node] < distance:
               continue
-          for neighbor in neighbors[node]:
-              neighbor_w, neighbor_node = neighbor
-              cost = neighbor_w + d
-              if cost > max_value:
-                  cost = max_value
-              if cost < distances[neighbor_node]:
-                  distances[neighbor_node] = cost
-                  heappush(node_h, (cost, neighbor_node))
+          for cost, new_node in graph[node]:
+              new_distance = distance + cost
+              if new_distance > max_value:
+                  new_distance = max_value
+              if distances[new_node] > new_distance:
+                  heappush(node_h, (new_distance, new_node))
+                  distances[new_node] = new_distance
       return distances
   
   
@@ -119,6 +120,8 @@
   # n : 도시의 개수
   # m : 버스의 개수
   # a, b, c : 시작도시, 도착도시, 비용
+  # 갈 수 없는 곳은 0으로 출력
+  # 도시에서 도시로 가는 경로는 여러 개 있을 수 있다.
   # 임력
   5
   14
@@ -141,11 +144,11 @@
   12 0 15 2 5
   8 5 0 1 1
   10 7 13 0 3
-  7 4 10 6 0
+7 4 10 6 0
   ```
 
   
-
+  
   ```python
   
   import sys
@@ -176,9 +179,9 @@
               print(0, end=' ')
           else:
               print(distance_m[i][j], end=' ')
-      print()
+    print()
   ```
-
+  
   
 
 # Bellman-Ford algorithm
@@ -243,6 +246,8 @@
             for edge in edges:
                 A, B, C = edge
                 new_distance = distances[A] + C
+                # A까지의 거리가 무한이 아니어야 함
+                # A까지의 거리 + A-B거리값을 무한으로 바꾼다해도 틀리는 경우 존재
                 if distances[A] != max_value and distances[B] > new_distance:
                     distances[B] = new_distance
                     if i == N:
@@ -263,7 +268,7 @@
             if distances[i] == max_value:
                 print('-1')
             else:
-                print(distances[i])
+            print(distances[i])
     ```
-
+    
     
