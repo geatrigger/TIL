@@ -82,3 +82,31 @@
   * 몇 번째 줄인지 보여줌
   * 그 후 숫자 누른 다음 G를 누르면 해당 번째 줄로 이동
 
+# yy
+
+* 행 복사
+
+# p, P
+
+* 붙여넣기
+
+# ?like, :/like
+
+* 이상태에서 n을 누르게되면 이전/다음 like 단어에 커서 이동
+* :s/like/Like를 하면 해당 행에서 like 단어를 Like로 바꿔줌
+* :.,-1s/like/Like를 하면 현재커서 기준 ~만큼 바꿈
+
+# tar
+
+* tape archive
+* 파일을 묶어서 하나로 만든 것
+* 묶기 : tar cvf unix.tar Unix
+* 풀기 : tar xvf unix.tar
+* 아카이브 내용 확인 : tar tvf myfold.tar
+* 아카이브 내용 업데이트 : tar uvf ch2.tar ch2
+  * 이미 생성한 것을 수정하는 역할
+* 아카이브 내용 추가 : tar rvf ch2.tar hosts
+  * 기존 아카이브에 파일 추가
+* 묶고 압축 : tar cvzf ch2.tar.gz ch2
+* 압축 풀기 : tar xvzf ch2.tar.gz
+
