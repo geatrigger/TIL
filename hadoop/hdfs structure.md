@@ -26,8 +26,9 @@
   * NameNode가 지정해준 블록 저장, 삭제, 복제
   * 주기적으로 Heartbeat(정상작동중이라는 신호)와 Blockreport(해당 DataNode의 모든 블록정보)를 NameNode에 보낸다
 * EditLog
-  * 마지막 checkpoint 이후로 namespace에 변화 log
+  * 마지막 checkpoint 이후로 namespace(file system)에 변화 log
 * FsImage
+  * 파일이름, 경로, block 개수, slave 정보 등 메타데이터들을 image 파일 형태로 저장한 것
   * namespace의 가장 마지막 checkpoint
 * Secondary NameNode
   * https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html#Secondary_NameNode
@@ -35,4 +36,8 @@
   * 따라서 fsimage와 edit log를 주기적으로 합치고 edit log 크기를 limit을 넘지 않도록 조절한다
   * NameNode와 다른 기기에서 실행한다
   * 가장 최근 checkpoint image를 저장하고 primary NameNode가 필요할 때 항상 준비되어 있다
+  * Checkpoint Node와 비교
+    * https://data-flair.training/forums/topic/differentiate-secondary-namenode-and-checkpoint-node-in-hadoop/
+    * 똑같이 fsimage와 edit log들을 합치는 일을 수행한다
+    * 다만 Checkpoint Node의 경우 merge한 다음 NameNode에게 보내지만, Secondary NameNode의 경우 영구 저장소에 저장이 되었다가 Namenode가 고장났을 때 저장소에서 fsimage 형태로 가져올 수 있다
 
