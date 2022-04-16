@@ -49,6 +49,8 @@
 * ssh 설정
 
   * [ssh](../ssh/ssh.md)
+  
+* tree 설치
 
 # raspberry virtualization
 
@@ -74,3 +76,29 @@
 # raspberry status check
 
 * 온도 모니터링
+
+  ```bash
+  # bash, not sh
+  printf "cpu temp\\t%.3f\\n" "$(</sys/class/thermal/thermal_zone0/temp)e-3"
+  printf "gpu temp\\t%.1f\\n" "$(vcgencmd measure_temp | grep  -o -E '[[:digit:].]+')"
+  ```
+
+* 디스크 공간 확인
+
+  ```bash
+  df -h /
+  tree -dh --du
+  # big file (MB)
+  du -am | sort -nr | head -20
+  
+  ```
+
+* 인터넷 속도 테스트
+
+  ```bash
+  sudo apt-get install -y speedtest-cli
+  speedtest --json
+  ```
+
+* 디스크 읽기 쓰기 속도 측정
+
