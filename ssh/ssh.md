@@ -14,9 +14,12 @@ sudo apt-get install openssh-server
 # ssh start
 ```
 sudo service ssh start
+# always start at booting
+# ~/.bashrc 
 ```
 
 # check service status
+
 ```
 service --status-all | grep +
 ```
