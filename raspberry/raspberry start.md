@@ -1,4 +1,4 @@
-# raspberry essential
+# raspberry default
 
 * raspbian 64bit(aarch64==armv8, devian계열)
 
@@ -57,9 +57,106 @@
 * 라즈베리용 도커 설치
 
   * [raspberry docker](./raspberry docker.md)
+  
 * 도커 sudo 없이 실행설정
+
 * 도커 멀티 플랫폼 빌드(buildx)
+
 * 쿠버네티스 설치(k3s)
+  
+  * 라즈베리4 4g 4대로 클러스터 구축 사례
+  
+    * https://github.com/REBELinBLUE/k3s-on-raspbian/tree/main/setup
+  
+  * cgroup enable
+  
+    ```shell
+    sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/cmdline.txt
+    ```
+  
+  * k3s 서비스로 설치
+  
+    ```shell
+    # master
+    curl -sfL https://get.k3s.io | sh -
+  # master K3S_TOKEN
+    sudo cat /var/lib/rancher/k3s/server/node-token
+    # worker
+    curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
+    ```
+    
+  
+* k3s 완전삭제
+
+  ```shell
+  sudo /usr/local/bin/k3s*-uninstall.sh
+  sudo rm -rf /var/lib/{docker,containerd} /etc/{cni,containerd,docker} /var/lib/cni
+  sudo rm -rf /var/log/{containers,pods}
+  sudo reboot
+  ```
+
+  
+
+* 배포 예시
+
+  * nginx 배포
+
+    ```shell
+     sudo kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+    ```
+
+  * pod 상태 확인
+
+    ```shell
+    sudo kubectl get pods
+    ```
+
+  * 포트포워딩으로 파드 작동 확인
+
+    * https://kubernetes.io/ko/docs/tasks/run-application/run-stateless-application-deployment/
+    * pod이름, expose port, pod port
+    * address 옵션은 로컬이 아닌 다른 어느곳에서도 접근 가능하도록 설정
+    * nginx 소개 페이지가 랜더링됨
+    * 127.0.0.1과 0.0.0.0의 차이 : 자기가 자신에게로만 / 모두가 자신에게로
+
+    ```shell
+    sudo kubectl --address 0.0.0.0 port-forward nginx-deployment-66b6c48dd5-4qc4t 8080
+    :80
+    curl localhost:8080
+    # 포트열린지 확인
+    netstat -an | grep "LISTEN"
+    ```
+
+  * 파드 실행중일 때 상태
+
+    ![image-20220424210641726](raspberry start.assets/image-20220424210641726.png)
+
+    ![image-20220424210514269](raspberry start.assets/image-20220424210514269.png)
+
+  * 파드 종료후 상태
+
+    ![image-20220424210729452](raspberry start.assets/image-20220424210729452.png)
+
+* 다른예제들이 배포가 제대로 안되는 문제점
+
+  * retail-project-dev
+
+    * https://dev.to/fransafu/the-first-experience-with-k3s-lightweight-kubernetes-deploy-your-first-app-44ea
+
+      ```shell
+      curl -X GET -L https://gist.githubusercontent.com/fransafu/4075cdcaf2283ca5650e71c7fd8335cb/raw/19d7cfa0f82f1b66af6e39389073bcb0108c494c/simple-rest-golang.yaml > simple-rest-golang.yaml
+      sudo kubectl apply -f simple-rest-golang.yaml
+      ```
+
+  * kubernetes interactive
+
+    * https://kubernetes.io/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/
+
+      ```shell
+      kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+      ```
+
+  * 짐작되는 이유 : arm을 지원안하는 이미지 사용
 
 # raspberry development environment
 
@@ -118,4 +215,52 @@
   * 허브에 랜선 연결은 똑소리나서 더이상 안들어갈 정도까지 넣음
   * iperf(2버전)으로 서로간의 인트라넷 속도 측정(3버전은 호환안됨)
   
+* IP 고정
+
+  * /etc/dhcpcd.conf
+
+    ```shell
+    interface eth0
+    static ip_address=192.168.0.2
+  static routers=192.168.0.1
+    static domain_name_servers=192.168.0.1 8.8.8.8
+    ```
+  
+  * 설정 적용
+  
+    ```shell
+  	sudo /etc/init.d/networking restart
+    sudo reboot
+  	```
+  
+  * ssh에서 주변 host 정보 등록(~/.ssh/config)
+  
+    ```shell
+    Host master
+            Hostname 192.168.0.101
+            User pi
+    
+    Host node-1
+            Hostname 192.168.0.102
+            ForwardAgent yes
+            User pi
+            ProxyCommand ssh -A master -W %h:%p
+    ```
+  
+  * 주변 host 정보 등록(/etc/hosts)
+  
+    ```shell
+    192.168.0.101 master
+    192.168.0.102 node-1
+    ```
+  
+  * host이름 바꾸기
+  
+    * 같은 이름이면 node를 제대로 인식 못함
+  
+      ```shell
+      hostnamectl set-hostname node-1
+      ```
+  
+      
 
